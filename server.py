@@ -15,6 +15,8 @@ app = Flask(__name__)
 app.config.from_object('config')
 db.app = app
 db.init_app(app)
+if not os.path.exists('stories.db'):
+    db.create_all()
 
 
 def get_random_url():
@@ -65,12 +67,10 @@ def edit_story(story_url):
                                     'story_signature': story_signature,
                                     'story_body': story_body})
             db.session.commit()
-        return render_template('form.html', story=story_page)
+        return render_template('form.html', story=story_page) # TODO Change to story_view
     else:
         return "You don't have permissions for edit this story!"
 
 
 if __name__ == "__main__":
-    if not os.path.exists('stories.db'):
-        db.create_all()
     app.run()
