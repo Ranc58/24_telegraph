@@ -1,3 +1,2 @@
 Flask-SQLAlchemy==2.2
-uuid==1.30
 gunicorn==19.7.1
