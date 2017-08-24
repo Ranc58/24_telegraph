@@ -1,6 +1,7 @@
 import os
 import random
 import string
+from functools import wraps
 from flask import Flask, render_template, request, redirect, url_for, make_response
 from models import Story, db
 import uuid
@@ -21,12 +22,22 @@ def get_random_url():
     return ''.join(random.choice(SIMPLE_CHARS) for char in range(MAX_URL_LEN))
 
 
+def filter_story_rows(func):
+    @wraps(func)
+    def wrapper(edited_story):
+        value_in_row = 1
+        changed_rows = dict(filter(lambda key:
+                                   key[value_in_row] is not '',
+                                   edited_story.items()))
+        func(changed_rows)
+    return wrapper
+
+
+@filter_story_rows
 def update_story(edited_story):
     stories = db.session.query(Story)
     story_to_update = stories.filter_by(story_url=edited_story['story_url'])
-    for key, value in edited_story.items():
-        if value is not '':
-            story_to_update.update({key: value})
+    story_to_update.update(edited_story)
     db.session.commit()
 
 
