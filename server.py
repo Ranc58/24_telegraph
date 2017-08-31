@@ -1,10 +1,11 @@
 import os
 import random
 import string
+import uuid
 from functools import wraps
 from flask import Flask, render_template, request, redirect, url_for, make_response
 from models import Story, db
-import uuid
+
 
 SIMPLE_CHARS = string.ascii_letters + string.digits
 MAX_URL_LEN = 8
