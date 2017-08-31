@@ -27,8 +27,7 @@ def filter_story_rows(func):
     def wrapper(edited_story):
         value_in_row = 1
         changed_rows = dict(filter(lambda key:
-                                   key[value_in_row] is not '',
-                                   edited_story.items()))
+                                   key[value_in_row], edited_story.items()))
         func(changed_rows)
     return wrapper
 
