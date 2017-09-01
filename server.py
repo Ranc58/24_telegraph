@@ -24,10 +24,12 @@ def get_random_url():
 
 def filter_story_rows(func):
     @wraps(func)
+    # Filter for only edited rows in story
     def wrapper(edited_story):
         value_in_row = 1
         changed_rows = dict(filter(lambda key:
-                                   key[value_in_row], edited_story.items()))
+                                   key[value_in_row],
+                                   edited_story.items()))
         func(changed_rows)
     return wrapper
 
