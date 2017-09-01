@@ -3,20 +3,20 @@
     <div class="container">
       <form method="POST">
         <div class="form-group">
-          <input name="header" class="form-control" placeholder="{% if story %}{{ story['story_title']}} {% else %} Заголовок {% endif %}" autofocus/>
+          <input name="header"  class="form-control" placeholder="Заголовок" value="{% if story %}{{ story['story_title']}}{% endif %}" autofocus/>
         </div>
         <div class="form-group">
-          <input name="signature" class="form-control" placeholder="{% if story %} {{ story['story_signature']}} {% else %} Подпись {% endif %}"/>
+          <input name="signature" class="form-control" placeholder="Подпись" value="{% if story %}{{ story['story_signature']}}{% endif %}"/>
         </div>
         <div class="form-group">
-          <textarea name="body" class="form-control" rows="10" placeholder="{% if story %} {{ story['story_body']}} {% else %} Ваша история {% endif %}" ></textarea>
+          <textarea name="body" class="form-control" rows="10" placeholder="Ваша история" >{% if story %}{{ story['story_body']}}{% endif %}</textarea>
         </div>
         <div class="form-group">
           <button class="btn btn-primary" type="submit">{%if story %} Сохранить изменения {% else %} Опубликовать {% endif %}</button>
         </div>
       </form>
       {% if story %}
-      <button onclick="location.href='{{ url_for('view_story', story_url=story['story_url']) }}'" class="btn btn-primary" type="submit">Просмотреть историю</button>
+      <button onclick="location.href='{{ url_for('view_story', story_slug=story['story_slug']) }}'" class="btn btn-primary" type="submit">Просмотреть историю</button>
       {% endif %}
     </div><!-- /.container -->
 {% endblock %}
